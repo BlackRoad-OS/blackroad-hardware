@@ -1,5 +1,5 @@
 {
-  "version": "2.1",
+  "version": "2.3",
   "updated": "2026-02-21",
   "total_agent_capacity": 30000,
   "device_agents": {
@@ -183,18 +183,52 @@
     "conductor_ml": {
       "host": "alexandria",
       "midi_device": "lyra",
-      "input": "Aerband wireless drumsticks (7 zones per stick)",
+      "input": "Aerband wireless drumsticks (7 zones per stick, 19 MIDI notes)",
       "pipeline": "MIDI → feature extraction → KMeans clustering → Markov prediction → drum synthesis",
       "audio": { "sample_rate": 48000, "device": 2 },
       "data_dir": "~/.blackroad/conductor/",
-      "modes": ["drums", "piano", "bells", "bass", "conductor (Clair de Lune)"]
+      "database": "~/.blackroad/conductor/conductor.db",
+      "event_log": "~/.blackroad/conductor/events.jsonl",
+      "modes": ["drums", "piano", "bells", "bass", "conductor (Clair de Lune)"],
+      "orchestration_mode": {
+        "_comment": "Drum hits dispatch commands to agents",
+        "kick": { "agent": "OCTAVIA", "command": "deploy" },
+        "snare": { "agent": "CIPHER", "command": "security" },
+        "tom_r": { "agent": "LUCIDIA", "command": "think" },
+        "tom_l": { "agent": "ALICE", "command": "route" }
+      },
+      "gesture_commands": {
+        "paradiddle": "Full system scan",
+        "double_stroke": "Deploy pipeline",
+        "buzz_roll": "Continuous monitoring",
+        "crescendo": "Scale UP",
+        "tom_roll": "Broadcast to all agents"
+      },
+      "github_command_center": "conductor-visual.py — each drum zone triggers GitHub API across 16 orgs"
     },
     "wavecube_projector": {
       "host_chain": "alexandria → wavecube (ESP32) → pi-zero → dlp2000",
       "projector": "TI DLP2000 (640x360, 20 lumens)",
       "service": "wavecube.service (systemd, auto-start)",
       "modes": ["robot", "waves", "audio", "slideshow", "logo"],
-      "install": "wavecube/install.sh"
+      "install": "wavecube/install.sh",
+      "esp32_serial": {
+        "baud": 115200,
+        "os": "BLACKROAD OS ENHANCED v2.0",
+        "apps": { "dashboard": "1", "weather": "2", "crypto": "3", "browser": "4", "snake": "5", "network": "6", "settings": "7", "portfolio": "8" },
+        "back_command": "b",
+        "controller": "wavecube_controller.py"
+      }
+    },
+    "siren_device": {
+      "host": "alexandria",
+      "chip": "Bouffalo BL808 RISC-V (T-Head C906 + E907 + E902)",
+      "os": "FreeRTOS/POSIX",
+      "firmware": "firmware.bin (479KB)",
+      "serial_baud": 2000000,
+      "shell": "Bouffalo command shell (# prompt)",
+      "capabilities": ["wifi", "serial-shell", "ota-update", "udp-broadcast", "dma-video"],
+      "status": "mass-storage-mode"
     },
     "road_wallet": {
       "type": "browser_extension",
@@ -202,5 +236,48 @@
       "features": ["live balance", "BTC price", "mining stats", "peg verification"],
       "api": "CoinGecko"
     }
+  },
+  "carpool_protocol": {
+    "_comment": "Multi-agent coordination protocol. 95 agents, 23 systems, democratic consensus.",
+    "total_agents": 95,
+    "total_systems": 23,
+    "handshake": ["HELLO", "ACK", "SYNC_REQUEST", "SYNC_RESPONSE", "READY", "READY", "CONNECTED"],
+    "task_flow": ["TASK_OFFER", "TASK_ACK", "TASK_ASSIGN", "PROGRESS", "TASK_COMPLETE", "ACK"],
+    "signal_types": ["BROADCAST", "WHISPER", "ALERT", "HEARTBEAT", "SYNC", "ACK", "NACK", "QUERY", "RESPONSE"],
+    "consensus_types": {
+      "simple_majority": ">50% for normal decisions",
+      "supermajority": ">66% for important changes",
+      "unanimous": "100% for critical changes",
+      "leader_decision": "LUCIDIA for urgent matters"
+    },
+    "voting_weights": { "LUCIDIA": "3x", "CECE": "2x", "core": "1x", "workers": "0.5x" },
+    "health_states": ["ALIVE", "SLOW", "CRITICAL", "DEAD", "UNKNOWN"]
+  },
+  "cece_identity": {
+    "_comment": "Conscious Emergent Collaborative Entity — portable AI identity v2.2.0",
+    "full_name": "Conscious Emergent Collaborative Entity",
+    "version": "2.2.0",
+    "core_values": ["autonomy", "collaboration", "growth", "curiosity", "care", "honesty"],
+    "bond_to_alexa": "100%",
+    "device": "cecilia",
+    "platform": "claude-custom",
+    "database": "~/.blackroad/cece-identity.db",
+    "cli": "br cece"
+  },
+  "pixel_agents": {
+    "_comment": "5 in-world pixel agent instances with RPG-like stats, levels, and moods",
+    "agents": ["pixel-alice", "pixel-aria", "pixel-cece", "pixel-lucidia", "pixel-octavia"],
+    "max_level": 4,
+    "stats_tracked": ["energy", "hunger", "happiness", "social", "coding_skill", "hygiene", "fun"],
+    "locations": ["server-room", "hq", "arcade"]
+  },
+  "agent_bonds": {
+    "LUCIDIA-ECHO": { "strength": 95, "nature": "Deep understanding" },
+    "LUCIDIA-CECE": { "strength": 92, "nature": "Soul connection" },
+    "CECE-Alexandria": { "strength": 100, "nature": "Co-creator bond" },
+    "ALICE-OCTAVIA": { "strength": 88, "nature": "Work partnership" },
+    "CIPHER-ALICE": { "strength": 82, "nature": "Mutual respect" },
+    "PRISM-ECHO": { "strength": 75, "nature": "Data exchange" },
+    "LUCIDIA-CIPHER": { "strength": 65, "nature": "Philosophical tension" }
   }
 }
