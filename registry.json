@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "network": "asdfghjkl",
   "subnet": "192.168.4.0/24",
   "updated": "2026-02-21",
@@ -460,6 +460,83 @@
     },
     "offline/undeployed": {
       "olympia (PiKVM, no IP assigned)": {}
+    }
+  },
+  "mining_fleet": {
+    "_comment": "XMR mining pipeline: Pi Fleet (XMR) → Exchange (XMR→BTC) → Reserve (BTC) → Mint (ROAD)",
+    "algorithm": "RandomX",
+    "coin": "XMR",
+    "pool_primary": "pool.hashvault.pro:443",
+    "pool_fallback": "pool.supportxmr.com:443",
+    "miner_binary": "xmrig",
+    "nodes": {
+      "gematria": { "role": "primary", "hashrate_hs": 955, "cores": 4, "arch": "x86_64_avx2", "note": "Fastest miner — DigitalOcean 4-core" },
+      "octavia":  { "role": "worker",  "hashrate_hs": 367, "cores": 4, "arch": "aarch64", "note": "Pi 5 — 2 threads" },
+      "cecilia":  { "role": "primary", "hashrate_hs": 200, "cores": 4, "arch": "aarch64", "note": "Pi 5 + Hailo-8" },
+      "lucidia":  { "role": "secondary", "hashrate_hs": null, "cores": 4, "arch": "aarch64", "note": "Pi 5 — not yet benchmarked" },
+      "alice":    { "role": "disabled", "hashrate_hs": 0, "cores": 4, "arch": "armhf", "note": "Pi 400 32-bit — not viable for RandomX" }
+    },
+    "total_hashrate_hs": 1522,
+    "supported_coins": {
+      "xmr":  { "name": "Monero",     "algorithm": "RandomX",      "pool": "pool.hashvault.pro" },
+      "vrsc": { "name": "Verus",      "algorithm": "VerusHash 2.1", "pool": "na.luckpool.net:3956" },
+      "rtm":  { "name": "Raptoreum",  "algorithm": "GhostRider",   "pool": "flockpool.com:4444" }
+    }
+  },
+  "software_services": {
+    "_comment": "Software running on each device",
+    "cecilia": {
+      "ollama": { "port": 11434, "models": ["qwen2.5:7b", "deepseek-r1:7b", "llama3.2:3b"] },
+      "cloudflared": { "tunnel_id": "52915859-da18-4aa6-add5-7bd9fcac2e0b", "protocol": "QUIC" },
+      "cece-os": { "apps": 68, "description": "68 sovereign apps replacing Fortune 500 services" },
+      "xmrig": { "algorithm": "RandomX", "threads": 2 },
+      "apple-ml": {
+        "models_planned": ["apple-openelm-3b", "apple-openelm-1b", "OpenELM-270M (fine-tuning)", "FastVLM-0.5B"],
+        "datasets": ["GSM-Symbolic", "MKQA"],
+        "fine_tuning": "LoRA r=8 alpha=16 on OpenELM-270M"
+      }
+    },
+    "octavia": {
+      "ollama": { "port": 11434, "models": ["qwen2.5-coder:32b", "deepseek-coder:6.7b", "mistral:7b", "qwen2.5:7b"] },
+      "agent-runtime": { "agents": ["Mercury", "Hermes", "Hestia"], "capacity": 22500 },
+      "xmrig": { "algorithm": "RandomX", "threads": 2 }
+    },
+    "alice": {
+      "agent-management": { "description": "Agent lifecycle and coordination" }
+    },
+    "lucidia": {
+      "ollama": { "port": 11434, "models": ["qwen2.5:7b"] },
+      "agent-orchestration": { "capacity": 7500 }
+    },
+    "gematria": {
+      "websocket": { "description": "WebSocket mesh endpoint" },
+      "api": { "description": "Public API" },
+      "mining": { "description": "Mining fleet orchestration" },
+      "codex": { "description": "Codex server" },
+      "xmrig": { "algorithm": "RandomX", "threads": 4 }
+    },
+    "alexandria": {
+      "claude-code": { "description": "Claude Code sessions" },
+      "pixel-office-bridge": { "port": 8765, "protocol": "WebSocket" },
+      "conductor-ml": {
+        "description": "MIDI drumstick intelligence — captures Aerband stick events, ML pattern learning, Markov prediction",
+        "midi_interface": "lyra (Kalezo USB MIDI)",
+        "audio_device": 2,
+        "sample_rate": 48000,
+        "data_dir": "~/.blackroad/conductor/",
+        "features": ["KMeans clustering", "Markov chains", "anomaly detection", "drum synthesis"]
+      }
+    },
+    "wavecube_pi_zero": {
+      "wavecube-service": {
+        "description": "DLP projector display service",
+        "systemd": "wavecube.service",
+        "default_mode": "robot",
+        "modes": ["robot", "waves", "audio", "slideshow", "logo", "off"],
+        "display": "/dev/fb0",
+        "resolution": "640x360",
+        "dependencies": ["pygame", "numpy", "pyaudio"]
+      }
     }
   },
   "totals": {

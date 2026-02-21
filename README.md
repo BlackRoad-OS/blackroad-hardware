@@ -242,6 +242,58 @@ ssh root@159.65.43.12      # gematria
 
 ---
 
+## Mining Fleet (XMR → BTC → ROAD)
+
+The Pi fleet mines Monero (XMR) using RandomX, feeding into the ROAD conversion pipeline.
+
+```
+Pi Fleet (XMR mining) → Exchange (XMR→BTC) → Reserve (BTC) → Mint (ROAD)
+```
+
+| Node | Arch | Hashrate | Role | Notes |
+|------|------|----------|------|-------|
+| **gematria** | x86_64 AVX2 | 955 H/s | Primary | Fastest — DigitalOcean 4-core |
+| **octavia** | aarch64 | 367 H/s | Worker | Pi 5, 2 threads |
+| **cecilia** | aarch64 | 200 H/s | Primary | Pi 5 + Hailo-8 |
+| **lucidia** | aarch64 | TBD | Secondary | Pi 5, not yet benchmarked |
+| **alice** | armhf | — | Disabled | Pi 400 32-bit, not viable for RandomX |
+
+**Total fleet hashrate:** ~1,522 H/s | **Pool:** HashVault (primary), SupportXMR (fallback)
+
+Also supports: **VerusHash 2.1** (Verus/VRSC), **GhostRider** (Raptoreum/RTM)
+
+---
+
+## Software Services Per Device
+
+### cecilia (CECE OS + AI + Mining)
+- **CECE OS**: 68 sovereign apps replacing Fortune 500 services
+- **Ollama**: qwen2.5:7b, deepseek-r1:7b, llama3.2:3b
+- **Cloudflared**: QUIC tunnel (agent.blackroad.ai, api.blackroad.ai)
+- **xmrig**: RandomX mining (2 threads, 200 H/s)
+- **Apple ML** (planned): OpenELM-3B, OpenELM-1.1B, OpenELM-270M (LoRA fine-tuning), FastVLM-0.5B
+
+### octavia (Primary Compute + Agents)
+- **Ollama**: qwen2.5-coder:32b, deepseek-coder:6.7b, mistral:7b, qwen2.5:7b
+- **Agent Runtime**: Mercury (revenue), Hermes (deploy), Hestia (payments) — 22,500 capacity
+- **xmrig**: RandomX mining (2 threads, 367 H/s)
+
+### alexandria (Command Center)
+- **Claude Code**: Human orchestrator sessions
+- **Pixel Office Bridge**: WebSocket agent coordination (:8765)
+- **Conductor ML**: MIDI drumstick intelligence via Lyra — Aerband stick input, KMeans clustering, Markov prediction, drum synthesis (48kHz)
+
+### gematria (Cloud Oracle)
+- **WebSocket mesh**, **Public API**, **Codex server**
+- **xmrig**: RandomX mining (4 threads, 955 H/s) — fastest in fleet
+
+### wavecube → pi-zero (DLP Projector)
+- **systemd service**: Auto-starts in robot mode on boot
+- **Modes**: robot (animated), waves (generative art), audio (FFT reactive), slideshow, logo
+- **Display**: /dev/fb0 framebuffer, 640x360 via DPI GPIO
+
+---
+
 ## File Index
 
 | File | Description |

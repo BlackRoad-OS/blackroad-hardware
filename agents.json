@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "updated": "2026-02-21",
   "total_agent_capacity": 30000,
   "device_agents": {
@@ -168,5 +168,39 @@
     "code_deploy":     8407,
     "infrastructure":  5401,
     "monitoring":      3600
+  },
+  "mining_fleet": {
+    "_comment": "XMR mining across Pi fleet + cloud. Pipeline: XMR → BTC → ROAD",
+    "active_miners": ["gematria", "octavia", "cecilia"],
+    "standby": ["lucidia"],
+    "disabled": ["alice"],
+    "total_hashrate_hs": 1522,
+    "primary_pool": "pool.hashvault.pro",
+    "orchestrator": "carpool/treasury/roadchain/miner.py"
+  },
+  "hardware_peripherals": {
+    "_comment": "Non-compute hardware with software stacks",
+    "conductor_ml": {
+      "host": "alexandria",
+      "midi_device": "lyra",
+      "input": "Aerband wireless drumsticks (7 zones per stick)",
+      "pipeline": "MIDI → feature extraction → KMeans clustering → Markov prediction → drum synthesis",
+      "audio": { "sample_rate": 48000, "device": 2 },
+      "data_dir": "~/.blackroad/conductor/",
+      "modes": ["drums", "piano", "bells", "bass", "conductor (Clair de Lune)"]
+    },
+    "wavecube_projector": {
+      "host_chain": "alexandria → wavecube (ESP32) → pi-zero → dlp2000",
+      "projector": "TI DLP2000 (640x360, 20 lumens)",
+      "service": "wavecube.service (systemd, auto-start)",
+      "modes": ["robot", "waves", "audio", "slideshow", "logo"],
+      "install": "wavecube/install.sh"
+    },
+    "road_wallet": {
+      "type": "browser_extension",
+      "manifest_version": 3,
+      "features": ["live balance", "BTC price", "mining stats", "peg verification"],
+      "api": "CoinGecko"
+    }
   }
 }
