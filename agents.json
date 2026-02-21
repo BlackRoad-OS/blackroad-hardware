@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "updated": "2026-02-21",
+  "total_agent_capacity": 30000,
+  "device_agents": {
+    "cecilia": {
+      "ip": "192.168.4.89",
+      "named_agents": ["CECE"],
+      "role": "primary-ai-agent",
+      "ollama_models": ["qwen2.5:7b", "deepseek-r1:7b", "llama3.2:3b"],
+      "services": ["cece-os", "ollama", "cloudflared"],
+      "specialization": "CECE OS — 68 sovereign apps, Hailo-8 edge AI",
+      "compute_tops": 26
+    },
+    "octavia": {
+      "ip": "192.168.4.38",
+      "named_agents": ["OCTAVIA"],
+      "role": "primary-compute",
+      "ollama_models": ["qwen2.5:7b", "mistral:7b"],
+      "services": ["ollama", "agent-runtime"],
+      "specialization": "ML acceleration, model optimization, batch inference",
+      "agent_capacity": 22500
+    },
+    "alice": {
+      "ip": "192.168.4.49",
+      "named_agents": ["ALICE"],
+      "role": "worker",
+      "services": ["agent-management", "coordination"],
+      "specialization": "Agent lifecycle, coordination protocols, distributed systems"
+    },
+    "lucidia": {
+      "ip": "192.168.4.81",
+      "named_agents": ["LUCIDIA"],
+      "role": "ai-inference",
+      "ollama_models": ["qwen2.5:7b"],
+      "services": ["ollama", "agent-orchestration"],
+      "specialization": "Multi-agent orchestration, NLU, anti-hallucination",
+      "agent_capacity": 7500
+    },
+    "aria": {
+      "ip": "192.168.4.82",
+      "named_agents": ["ARIA"],
+      "role": "harmony",
+      "services": ["ml-pipelines", "data-analysis"],
+      "specialization": "ML pipelines, data science, research coordination"
+    },
+    "anastasia": {
+      "ip": "174.138.44.45",
+      "named_agents": ["SHELLFISH"],
+      "role": "edge-compute",
+      "services": ["edge-compute", "agent-runtime"],
+      "specialization": "Edge compute, failover, public-facing services"
+    },
+    "gematria": {
+      "ip": "159.65.43.12",
+      "named_agents": [],
+      "role": "cloud-oracle",
+      "services": ["websocket", "api", "mining"],
+      "specialization": "WebSocket mesh, mining fleet, public API endpoint"
+    },
+    "alexandria": {
+      "ip": "192.168.4.28",
+      "named_agents": [],
+      "role": "command-center",
+      "services": ["claude-code", "development", "orchestration"],
+      "specialization": "Human orchestrator workstation. Runs Claude Code sessions."
+    }
+  },
+  "core_agents": {
+    "LUCIDIA":  { "device": "lucidia",    "role": "Coordinator",  "symbol": "🔴", "type": "core" },
+    "ALICE":    { "device": "alice",      "role": "Router",       "symbol": "🔵", "type": "core" },
+    "OCTAVIA":  { "device": "octavia",    "role": "Compute",      "symbol": "🟢", "type": "core" },
+    "PRISM":    { "device": null,         "role": "Analyst",      "symbol": "🟡", "type": "core" },
+    "ECHO":     { "device": null,         "role": "Memory",       "symbol": "🟣", "type": "core" },
+    "CIPHER":   { "device": null,         "role": "Security",     "symbol": "⚫", "type": "core" },
+    "CECE":     { "device": "cecilia",    "role": "Soul",         "symbol": "💜", "type": "core" }
+  },
+  "mythology_agents": {
+    "Mercury":  { "model": "qwen2.5-coder:32b", "role": "Revenue",        "type": "ollama" },
+    "Hermes":   { "model": "deepseek-coder:6.7b","role": "Deployment",     "type": "ollama" },
+    "Hestia":   { "model": "mistral:7b",         "role": "Payments",       "type": "ollama" },
+    "Roadie":   { "model": "ollama",              "role": "Infrastructure", "type": "ollama" }
+  },
+  "cloud_ai_agents": {
+    "Cadence":  { "platform": "ChatGPT",  "role": "Creative",  "type": "cloud-ai" },
+    "Silas":    { "platform": "Grok",      "role": "Analyst",   "type": "cloud-ai" },
+    "Gematria": { "platform": "Gemini",    "role": "Research",  "type": "cloud-ai" }
+  },
+  "capacity_distribution": {
+    "ai_research":    12592,
+    "code_deploy":     8407,
+    "infrastructure":  5401,
+    "monitoring":      3600
+  }
+}

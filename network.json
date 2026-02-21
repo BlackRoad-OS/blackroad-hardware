@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "updated": "2026-02-21",
+  "lan": {
+    "subnet": "192.168.4.0/24",
+    "gateway": "192.168.4.1",
+    "dns": ["1.1.1.1", "8.8.8.8"],
+    "dhcp_range": "192.168.4.10-192.168.4.254",
+    "router": {
+      "name": "meridian",
+      "vendor": "Xfinity",
+      "ip": "192.168.4.1"
+    }
+  },
+  "tailscale": {
+    "mesh_name": "blackroad",
+    "nodes": {
+      "cecilia":   { "tailscale_ip": "100.72.180.98",  "lan_ip": "192.168.4.89",  "os": "linux" },
+      "octavia":   { "tailscale_ip": "100.66.235.47",  "lan_ip": "192.168.4.38",  "os": "linux" },
+      "alice":     { "tailscale_ip": "100.77.210.18",  "lan_ip": "192.168.4.49",  "os": "linux" },
+      "lucidia":   { "tailscale_ip": "100.83.149.86",  "lan_ip": "192.168.4.81",  "os": "linux" },
+      "aria":      { "tailscale_ip": "100.109.14.17",  "lan_ip": "192.168.4.82",  "os": "linux" },
+      "anastasia": { "tailscale_ip": "100.94.33.37",   "lan_ip": null, "public_ip": "174.138.44.45", "os": "linux" },
+      "gematria":  { "tailscale_ip": "100.108.132.8",  "lan_ip": null, "public_ip": "159.65.43.12",  "os": "linux" }
+    }
+  },
+  "cloudflare_tunnel": {
+    "tunnel_id": "52915859-da18-4aa6-add5-7bd9fcac2e0b",
+    "tunnel_name": "blackroad",
+    "protocol": "QUIC",
+    "edge_location": "dfw08",
+    "running_on": "cecilia",
+    "routes": {
+      "agent.blackroad.ai": "localhost:8080",
+      "api.blackroad.ai": "localhost:3000"
+    }
+  },
+  "cloud_nodes": {
+    "anastasia": {
+      "provider": "DigitalOcean",
+      "public_ip": "174.138.44.45",
+      "region": "nyc1",
+      "role": "edge-compute"
+    },
+    "gematria": {
+      "provider": "DigitalOcean",
+      "public_ip": "159.65.43.12",
+      "region": "nyc1",
+      "role": "cloud-oracle"
+    }
+  },
+  "key_ports": {
+    "ssh": 22,
+    "http": 80,
+    "https": 443,
+    "ollama": 11434,
+    "roku_api": 8060,
+    "airplay": 7000,
+    "wireguard": 51820,
+    "mcp_bridge": 8420
+  }
+}
