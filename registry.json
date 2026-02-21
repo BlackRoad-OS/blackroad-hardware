@@ -539,6 +539,57 @@
       }
     }
   },
+  "telemetry_snapshot": {
+    "_comment": "Last known device stats from carpool/pi-*.json (as of 2026-02-15). Values are percentages or °C.",
+    "octavia":  { "cpu_pct": 25.0, "memory_pct": 36.0, "temp_c": 49.05, "activity": "ai-inference" },
+    "lucidia":  { "cpu_pct": 9.5,  "memory_pct": 17.0, "temp_c": 35.3,  "activity": "ai-inference" },
+    "alice":    { "cpu_pct": 62.5, "memory_pct": 27.0, "temp_c": 45.28, "activity": "processing" },
+    "aria":     { "cpu_pct": 33.3, "memory_pct": 82.0, "temp_c": 57.85, "activity": "ai-inference" }
+  },
+  "priority_stack": {
+    "_comment": "Docker Compose services ready for deployment (blackroad-os-priority-stack/)",
+    "vllm": {
+      "image": "vllm/vllm-openai:latest",
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "port": 8083,
+      "gpu": "nvidia (Jetson Orin Nano target)",
+      "max_model_len": 4096,
+      "status": "configured"
+    },
+    "headscale": {
+      "image": "headscale/headscale:latest",
+      "port": 8080,
+      "ui_port": 8081,
+      "description": "Self-hosted Tailscale control plane",
+      "status": "configured"
+    },
+    "keycloak": {
+      "image": "quay.io/keycloak/keycloak:latest",
+      "port": 8082,
+      "hostname": "identity.blackroad.io",
+      "db": "postgres:16-alpine",
+      "description": "Identity and access management (SSO)",
+      "status": "configured"
+    },
+    "espocrm": {
+      "image": "espocrm/espocrm:latest",
+      "port": 8085,
+      "hostname": "crm.blackroad.io",
+      "db": "mysql:8.0",
+      "description": "CRM for sales pipeline and contacts",
+      "status": "configured"
+    }
+  },
+  "heartbeat_protocol": {
+    "interval_seconds": 30,
+    "escalation": {
+      "1_miss": "warning",
+      "3_misses": "SLOW",
+      "5_misses": "CRITICAL + alert",
+      "10_misses": "DEAD + reroute tasks"
+    },
+    "total_agents_tracked": 95
+  },
   "totals": {
     "top_level_devices": 21,
     "sub_devices": 14,
@@ -553,6 +604,9 @@
     "offline": 3,
     "disconnected": 1,
     "sleeping": 1,
-    "total_compute_tops": 78
+    "total_compute_tops": 78,
+    "total_mining_hashrate_hs": 1522,
+    "total_agents_tracked": 95,
+    "priority_stack_services": 4
   }
 }

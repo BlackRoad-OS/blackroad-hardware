@@ -294,16 +294,42 @@ Also supports: **VerusHash 2.1** (Verus/VRSC), **GhostRider** (Raptoreum/RTM)
 
 ---
 
+## Pi Telemetry (Last Snapshot)
+
+| Device | CPU | Memory | Temp | Activity |
+|--------|-----|--------|------|----------|
+| **octavia** | 25.0% | 36.0% | 49.1°C | AI inference |
+| **alice** | 62.5% | 27.0% | 45.3°C | Processing |
+| **aria** | 33.3% | 82.0% | 57.9°C | AI inference |
+| **lucidia** | 9.5% | 17.0% | 35.3°C | AI inference |
+
+Heartbeat: every 30s | 1 miss = warning, 3 = SLOW, 5 = CRITICAL, 10 = DEAD (reroute)
+
+---
+
+## Priority Stack (Docker Compose, ready to deploy)
+
+| Service | Image | Port | Hostname | Purpose |
+|---------|-------|------|----------|---------|
+| **vLLM** | vllm/vllm-openai | :8083 | — | GPU inference (Qwen2.5-7B), Jetson Orin target |
+| **Headscale** | headscale/headscale | :8080 | — | Self-hosted Tailscale control plane |
+| **Keycloak** | keycloak/keycloak | :8082 | identity.blackroad.io | SSO / identity management |
+| **EspoCRM** | espocrm/espocrm | :8085 | crm.blackroad.io | CRM for sales pipeline |
+
+All stacks in `blackroad-os-priority-stack/` — bring up with `docker-compose up -d`.
+
+---
+
 ## File Index
 
 | File | Description |
 |------|-------------|
-| `registry.json` | Master device registry (21 hosts + 14 sub-devices, v2.0) |
-| `network.json` | Network topology, Tailscale mesh, tunnel config |
-| `agents.json` | Agent-to-device mapping, routing table, AI models, capacity |
-| `docs/TOPOLOGY.md` | Visual network diagrams |
-| `docs/CONNECTIVITY.md` | Connection guide (SSH, Tailscale, USB) |
-| `scripts/discover.sh` | Network discovery and health check |
+| `registry.json` | Master device registry (21 hosts + 14 sub-devices, v2.1) |
+| `network.json` | Network topology, Tailscale mesh, tunnel config, Ollama endpoints |
+| `agents.json` | Agent-to-device mapping, routing table, AI models, mining fleet, peripherals |
+| `docs/TOPOLOGY.md` | Visual network diagrams and subnet map |
+| `docs/CONNECTIVITY.md` | Connection guide (SSH, Tailscale, USB, Ollama, Roku) |
+| `scripts/discover.sh` | Network discovery and health check (LAN + cloud + Tailscale) |
 | `CLAUDE.md` | AI agent guidance |
 
 ---
