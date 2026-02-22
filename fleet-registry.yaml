@@ -395,12 +395,15 @@ fleet:
       cpu: "Octa-core Kryo 585 @ 2.84GHz"
       gpu: "Adreno 650"
       ram: "6GB LPDDR5"
-      storage: "128GB"  # update if 256GB
-      os: "Horizon OS (Android 10 base)"
+      ram_available: "3.5GB (verified 2026-02-22)"
+      storage: "112GB total, 24GB used, 89GB free (verified 2026-02-22)"
+      os: "Horizon OS (Android 14, API 34)"  # VERIFIED: Android 14, not 10
       display: "Dual LCD 1832×1920 per eye @ 72/90Hz"
       connectivity: "WiFi 6 (802.11ax), Bluetooth 5.1, USB-C 3.0"
-      ip_local: null  # update after: scripts/quest-adb.sh wifi-enable + connect
+      ip_local: "192.168.4.94"   # verified 2026-02-22
       adb_port: 5555
+      adb_serial: "1WMHH869MH1283"
+      adb_wifi: "192.168.4.94:5555"  # WiFi ADB enabled 2026-02-22
       adb_tool: "SideQuest platform-tools (installed on alexandria)"
       management_script: "scripts/quest-adb.sh"
       roles:
@@ -412,12 +415,12 @@ fleet:
       future:
         - blackroad-xr-app  # custom APK (apps/android/ in blackroad-agents)
       notes: |
-        Standalone Android XR headset. Dev mode enabled via Meta app.
-        Connect USB-C to alexandria for ADB. After WiFi ADB enabled,
-        runs wirelessly on LAN. Termux provides full Linux environment
-        for running BlackRoad agents that connect to gateway cluster.
+        Standalone Android XR headset. Dev mode enabled, WiFi ADB active.
+        USB-C to Mac (alexandria) for initial setup; now wireless on LAN.
+        Termux provides full Linux environment for running BlackRoad agents
+        that connect to gateway cluster (cecilia 192.168.4.89:8787).
       setup_doc: "devices/xr-headsets.md"
-      status: setup_pending  # needs WiFi ADB + Termux bootstrap
+      status: active
 
     # ── Retired ─────────────────────────────────────────────────
     - name: sensecap-watcher-w1a
